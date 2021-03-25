@@ -6,11 +6,9 @@ namespace Queues
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
-            for (int i = 0; i < 5; i++)
-            {
-                AddToQueue(5);
-            }
+            Queue s = new Queue(5);
+            s.AddToQueue("Vanya");
+            s.Print();
         }
     }
 }

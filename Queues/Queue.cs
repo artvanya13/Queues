@@ -6,47 +6,60 @@ namespace Queues
 {
     class Queue
     {
-        public int front = 0;
-        public int end = 0;
-        public int[] array;
+        private string[] Queues;
+        private bool CheckFull;
 
-        public Queue (int size)
+        private int front;
+        private int back;
+        public Queue(int x)
         {
-            array = new int[5];
+            Queues = new string[x];
+            front = 0;
+            back = 0;
+            CheckFull = false;
         }
 
 
-        public bool AddToQueue(int item)
+        public bool AddToQueue(string item)
         {
-            bool CheckFull = true;
-            if (end != front && end != 0)
+            bool finished = true;
+            if (CheckFull == false)
             {
-                array[end] = item;
-                end = (end + 1) % array.Length;
-                CheckFull = false;
+                Queues[back] = item;
+                back = (back + 1) % Queues.Length;
+                if (front == back)
+                {
+                    finished = false;
+                    CheckFull = true;
+                }
             }
-            return CheckFull;
+            return finished;
         }
 
-        public int RemoveFromQueue(int item)
+        public string RemoveFromQueue()
         {
-            int k = 0;
-            for (int i = 0; i < array.Length; i ++)
+            string element = "";
+            if (CheckFull == false && front == back)
             {
-                if (i == item)
-                    k = i; 
+                Console.WriteLine("Queue is empty");
             }
-            return array[k];
-            front ++;
+            else
+            {
+                element = Queues[front];
+                front = (front + 1) % Queues.Length;
+            }
+            return element;
         }
 
-        public void Print (int [] array)
+        public void Print ()
         {
-            for (int i = 0; i < array.Length; i ++)
+            int i = front;
+            do
             {
-                Console.WriteLine(array[i]);
-
+                Console.WriteLine(Queues[i]);
+                i = (i + 1) % Queues.Length;
             }
+            while (i != back);
         }
     }
 }
